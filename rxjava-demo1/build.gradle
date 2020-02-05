@@ -1,0 +1,44 @@
+
+apply plugin: 'java'
+
+def rxJava ="2.2.10"
+def retrofit2 = "2.6.0"
+
+repositories {
+    //flatDir(dirs:"libctp")
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+    
+    mavenCentral()
+    jcenter()
+}
+
+//改变项目默认结构
+sourceSets {
+    //设置源代码所在目录
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+
+    //设置测试代码所在目录
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
+}
+dependencies {
+	compile "io.reactivex.rxjava2:rxjava:$rxJava"
+	
+	//compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+    
+    //implementation fileTree(dir:'lib',includes:['*jar'])
+    // Use JUnit test framework
+    //testImplementation 'junit:junit:4.12'
+}
+
+
+
+

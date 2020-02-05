@@ -1,0 +1,7 @@
+本工程演示基本的如下Java的flowable接口、和java8中CompletableFuture的使用。
+具体请运行rxjava.demo包下的java类。
+Flow开头的，是关于Flowable接口使用
+Future开头的是，关于异步编程简单例子。
+
+rxjava.future 目录演示了CompletableFuture接口的返回，和模拟网络请求中超时的触发。
+rxjava.flow 目录演示了基于Flowable接口的消息发布和接收。
