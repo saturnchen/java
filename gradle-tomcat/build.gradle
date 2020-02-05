@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+    
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '8.5.41'
+           
+    runtime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+	runtime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+	runtime "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.5.2"
+	runtime fileTree(dir:'.',includes:['tomcat8.jar'])
+	
+	providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+	
+}
+
