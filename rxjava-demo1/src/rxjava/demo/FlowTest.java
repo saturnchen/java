@@ -25,7 +25,7 @@ public class FlowTest<T> {
 			System.out.println("current threadname:"+Thread.currentThread().getName());
 				    Disposable handle=flows.getSubscriber().subscribe(t->{
 				    	System.out.println(Thread.currentThread().getName()+":"+t);
-				    	Utils.sleep(10);
+				    	Utils.sleep(1000);
 				    });
 
 		}).start();
@@ -36,7 +36,7 @@ public class FlowTest<T> {
 			flows.getSubscriber()//.subscribeOn(Schedulers.computation())
 			   .subscribe(t->{
 		    	System.out.println(Thread.currentThread().getName()+":"+t);
-		    	Utils.sleep(10);
+		    	Utils.sleep(1000);
 		    });
 	
 		}).start();
