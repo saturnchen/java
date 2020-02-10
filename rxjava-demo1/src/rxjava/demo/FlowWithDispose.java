@@ -23,27 +23,31 @@ public class FlowWithDispose<T> {
 
 		//FlowableHolder<Integer>  flows=new FlowableHolder<Integer>();
 		
-		//消费者线程1,25秒后取消订阅
+		//消费者线程1
 		new Thread(()-> {
 			        int count[]=new int[]{0};
-				    Disposable handle=flows.getSubscriber().subscribe(t->{
+				    Disposable handle=flows.getSubscriber()
+				    		.subscribeOn(Schedulers.io())
+				    		.subscribe(t->{
 				    	System.out.println(Thread.currentThread().getName()+":"+t);
 				    	count[0]++;
+				    	Utils.sleep(1000);
 				    });
 				    
-				    System.out.println("wait 5 count to end  订阅");//休眠25秒后执行，也可以用Timer
-				    while(count[0]<5) {
-				        //取消订阅
+				    System.out.println(Thread.currentThread().getName()+":"+"wait 5 count to end  订阅");//消费5条消息后取消订阅
+				    while(count[0]<5) {				        
 				    	Utils.sleep(100);
 				    }
-				    handle.dispose();
+				    handle.dispose();  //取消订阅
 		}).start();
 		
-		//消费者线程3
+		//消费者线程2
 		new Thread(()-> {			
-			flows.getSubscriber().subscribeOn(Schedulers.io())
-			   .subscribe(t->{
-		    	System.out.println(Thread.currentThread().getName()+":"+t);
+			flows.getSubscriber()
+			    //.subscribeOn(Schedulers.io())
+			    .subscribe(t->{
+		    	  System.out.println(Thread.currentThread().getName()+":"+t);
+		    	  Utils.sleep(1000);
 		    });
 	
 		}).start();
@@ -54,9 +58,9 @@ public class FlowWithDispose<T> {
 			System.out.println(Thread.currentThread().getName()+"启动.....");
 			for(int i=0;i<20;i++) {
 			   flows.publish(i);
-			   Utils.sleep(20);
+			   Utils.sleep(10);
 			}
-			System.out.println(Thread.currentThread().getName()+"finished.");
+			System.out.println(Thread.currentThread().getName()+" 发布数据finished.");
 			Utils.sleep(20*1000);//等待20秒
 		}).start();
 		//等待其他线程结束

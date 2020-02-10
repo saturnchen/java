@@ -23,6 +23,7 @@ public class FlowTest<T> {
 		//消费者线程1
 		new Thread(()-> {
 			System.out.println("current threadname:"+Thread.currentThread().getName());
+			
 				    Disposable handle=flows.getSubscriber().subscribe(t->{
 				    	System.out.println(Thread.currentThread().getName()+":"+t);
 				    	Utils.sleep(1000);

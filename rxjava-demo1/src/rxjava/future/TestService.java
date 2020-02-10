@@ -36,7 +36,9 @@ public class TestService {
 						System.out.println("service:has timeout!");
 				}	    		
 	    	}, timeout);
-			Thread.sleep(sleepsecs*1000);
+	    	
+			Thread.sleep(sleepsecs*1000);//模拟真正服务的执行时间
+			
 			fe.complete(s);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
